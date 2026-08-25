@@ -232,4 +232,37 @@ describe('App Component', () => {
     fireEvent.click(themToggleAfter);
     expect(localStorage.getItem('todoAppTheme')).toBe('light');
   });
+
+  test('removes the overdue indicator when an overdue todo is completed', async () => {
+    // Past date is always overdue relative to the real clock.
+    server.use(
+      rest.get('/api/todos', (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json([
+            { id: 1, title: 'Overdue task', dueDate: '2000-01-01', completed: 0, createdAt: '2025-11-01T00:00:00Z' }
+          ])
+        );
+      }),
+      rest.patch('/api/todos/:id/toggle', (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.json({ id: parseInt(req.params.id), title: 'Overdue task', dueDate: '2000-01-01', completed: 1, createdAt: '2025-11-01T00:00:00Z' })
+        );
+      })
+    );
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Overdue task')).toBeInTheDocument();
+    });
+    expect(screen.getByText('Overdue')).toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByRole('checkbox')[0]);
+
+    await waitFor(() => {
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+  });
 });

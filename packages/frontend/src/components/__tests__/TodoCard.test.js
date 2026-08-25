@@ -99,4 +99,37 @@ describe('TodoCard Component', () => {
     
     expect(screen.queryByText(/Due:/)).not.toBeInTheDocument();
   });
+
+  describe('overdue indicator', () => {
+    // Fixed dates relative to the real clock keep these assertions deterministic.
+    const pastDate = '2000-01-01';
+    const futureDate = '2999-01-01';
+
+    it('should render an Overdue badge and danger-styled due date for an incomplete past-due todo', () => {
+      const overdueTodo = { ...mockTodo, dueDate: pastDate, completed: 0 };
+      const { container } = render(
+        <TodoCard todo={overdueTodo} {...mockHandlers} isLoading={false} />
+      );
+
+      expect(screen.getByText('Overdue')).toBeInTheDocument();
+      expect(container.querySelector('.todo-due-date')).toHaveClass('overdue');
+    });
+
+    it('should not render an Overdue badge for a future-dated todo', () => {
+      const futureTodo = { ...mockTodo, dueDate: futureDate, completed: 0 };
+      const { container } = render(
+        <TodoCard todo={futureTodo} {...mockHandlers} isLoading={false} />
+      );
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+      expect(container.querySelector('.todo-due-date')).not.toHaveClass('overdue');
+    });
+
+    it('should not render an Overdue badge for a completed past-due todo', () => {
+      const completedOverdue = { ...mockTodo, dueDate: pastDate, completed: 1 };
+      render(<TodoCard todo={completedOverdue} {...mockHandlers} isLoading={false} />);
+
+      expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
+    });
+  });
 });

@@ -30,8 +30,8 @@ independently. This is a frontend-only change; the Express backend and its API a
 
 **Purpose**: Prepare the frontend workspace for the new helper module and confirm a green baseline.
 
-- [ ] T001 [P] Create directories `packages/frontend/src/utils/` and `packages/frontend/src/utils/__tests__/` per plan.md
-- [ ] T002 Confirm the frontend test suite runs green before changes: `npm test --workspace=frontend`
+- [X] T001 [P] Create directories `packages/frontend/src/utils/` and `packages/frontend/src/utils/__tests__/` per plan.md
+- [X] T002 Confirm the frontend test suite runs green before changes: `npm test --workspace=frontend`
 
 ---
 
@@ -41,7 +41,7 @@ independently. This is a frontend-only change; the Express backend and its API a
 
 **⚠️ CRITICAL**: User story work cannot begin until this module exists and is importable.
 
-- [ ] T003 Create the helper module scaffold `packages/frontend/src/utils/overdue.js` exporting pure functions `isOverdue(todo, now = new Date())` and `sortTodosByOverdue(todos, now = new Date())` — null/invalid-safe, never mutates inputs, never throws (behavior implemented in later story tasks)
+- [X] T003 Create the helper module scaffold `packages/frontend/src/utils/overdue.js` exporting pure functions `isOverdue(todo, now = new Date())` and `sortTodosByOverdue(todos, now = new Date())` — null/invalid-safe, never mutates inputs, never throws (behavior implemented in later story tasks)
 
 **Checkpoint**: `overdue.js` is importable — user stories can now proceed.
 
@@ -57,18 +57,18 @@ todo; only the past-due one shows the badge and it appears at the top of the lis
 
 ### Tests for User Story 1 (write first, ensure they FAIL) ⚠️
 
-- [ ] T004 [P] [US1] Unit tests for `isOverdue` (incomplete todo: past → true; today → false; future → false; no `dueDate` → false), using an injected fixed `now`, in `packages/frontend/src/utils/__tests__/overdue.test.js`
-- [ ] T005 [P] [US1] Unit tests for `sortTodosByOverdue` (overdue todos on top sorted oldest-due-date first; non-overdue keep incoming newest-first order) in `packages/frontend/src/utils/__tests__/overdue.test.js`
-- [ ] T006 [P] [US1] Component test: `TodoCard` renders an "Overdue" badge and applies the danger style to the due date only for an overdue todo, in `packages/frontend/src/components/__tests__/TodoCard.test.js`
-- [ ] T007 [P] [US1] Component test: overdue todos render above non-overdue todos in the correct order, in `packages/frontend/src/components/__tests__/TodoList.test.js`
+- [X] T004 [P] [US1] Unit tests for `isOverdue` (incomplete todo: past → true; today → false; future → false; no `dueDate` → false), using an injected fixed `now`, in `packages/frontend/src/utils/__tests__/overdue.test.js`
+- [X] T005 [P] [US1] Unit tests for `sortTodosByOverdue` (overdue todos on top sorted oldest-due-date first; non-overdue keep incoming newest-first order) in `packages/frontend/src/utils/__tests__/overdue.test.js`
+- [X] T006 [P] [US1] Component test: `TodoCard` renders an "Overdue" badge and applies the danger style to the due date only for an overdue todo, in `packages/frontend/src/components/__tests__/TodoCard.test.js`
+- [X] T007 [P] [US1] Component test: overdue todos render above non-overdue todos in the correct order, in `packages/frontend/src/components/__tests__/TodoList.test.js`
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Implement `isOverdue` in `packages/frontend/src/utils/overdue.js` — incomplete (`completed` falsy) AND valid `dueDate` strictly before `now` compared at local calendar-day granularity (makes T004 pass)
-- [ ] T009 [US1] Implement `sortTodosByOverdue` in `packages/frontend/src/utils/overdue.js` — partition overdue vs rest, sort overdue by `dueDate` ascending, keep `rest` in incoming order, return a new array (makes T005 pass)
-- [ ] T010 [US1] Update `packages/frontend/src/components/TodoCard.js` to render an "Overdue" text badge and add an `overdue` class to the due-date element when the todo is overdue (makes T006 pass)
-- [ ] T011 [P] [US1] Add `.overdue-badge` and `.todo-due-date.overdue` styles referencing `var(--danger-color)` in `packages/frontend/src/App.css` (works in light and dark themes)
-- [ ] T012 [US1] Apply `sortTodosByOverdue` to the `todos` array before rendering the list in `packages/frontend/src/App.js` (passing ordered todos to `TodoList`) (makes T007 pass)
+- [X] T008 [US1] Implement `isOverdue` in `packages/frontend/src/utils/overdue.js` — incomplete (`completed` falsy) AND valid `dueDate` strictly before `now` compared at local calendar-day granularity (makes T004 pass)
+- [X] T009 [US1] Implement `sortTodosByOverdue` in `packages/frontend/src/utils/overdue.js` — partition overdue vs rest, sort overdue by `dueDate` ascending, keep `rest` in incoming order, return a new array (makes T005 pass)
+- [X] T010 [US1] Update `packages/frontend/src/components/TodoCard.js` to render an "Overdue" text badge and add an `overdue` class to the due-date element when the todo is overdue (makes T006 pass)
+- [X] T011 [P] [US1] Add `.overdue-badge` and `.todo-due-date.overdue` styles referencing `var(--danger-color)` in `packages/frontend/src/App.css` (works in light and dark themes)
+- [X] T012 [US1] Apply `sortTodosByOverdue` to the `todos` array before rendering the list in `packages/frontend/src/App.js` (passing ordered todos to `TodoList`) (makes T007 pass)
 
 **Checkpoint**: User Story 1 is fully functional and independently testable — this is the MVP.
 
@@ -84,13 +84,13 @@ an equivalent incomplete past-due todo stays flagged.
 
 ### Tests for User Story 2 (write first, ensure they FAIL) ⚠️
 
-- [ ] T013 [P] [US2] Unit test: `isOverdue` returns `false` for a completed (`completed === 1`) past-due todo, in `packages/frontend/src/utils/__tests__/overdue.test.js`
-- [ ] T014 [P] [US2] Component/integration test: toggling a todo's completion removes/restores the "Overdue" badge and moves it out of / back into the top group, in `packages/frontend/src/__tests__/App.test.js`
+- [X] T013 [P] [US2] Unit test: `isOverdue` returns `false` for a completed (`completed === 1`) past-due todo, in `packages/frontend/src/utils/__tests__/overdue.test.js`
+- [X] T014 [P] [US2] Component/integration test: toggling a todo's completion removes/restores the "Overdue" badge and moves it out of / back into the top group, in `packages/frontend/src/__tests__/App.test.js`
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Verify/adjust `isOverdue` in `packages/frontend/src/utils/overdue.js` so completed todos short-circuit to `false` before the date check (makes T013 pass)
-- [ ] T016 [US2] Ensure the list re-derives overdue grouping after `handleToggleTodo` updates `todos` state in `packages/frontend/src/App.js` (makes T014 pass)
+- [X] T015 [US2] Verify/adjust `isOverdue` in `packages/frontend/src/utils/overdue.js` so completed todos short-circuit to `false` before the date check (makes T013 pass)
+- [X] T016 [US2] Ensure the list re-derives overdue grouping after `handleToggleTodo` updates `todos` state in `packages/frontend/src/App.js` (makes T014 pass)
 
 **Checkpoint**: User Stories 1 and 2 both work independently.
 
@@ -106,11 +106,11 @@ is reported overdue.
 
 ### Tests for User Story 3 (write first, ensure they FAIL) ⚠️
 
-- [ ] T017 [P] [US3] Unit test: a todo due on date D is not overdue when `now` = D, but is overdue when `now` = D+1 (injected `now`), in `packages/frontend/src/utils/__tests__/overdue.test.js`
+- [X] T017 [P] [US3] Unit test: a todo due on date D is not overdue when `now` = D, but is overdue when `now` = D+1 (injected `now`), in `packages/frontend/src/utils/__tests__/overdue.test.js`
 
 ### Implementation for User Story 3
 
-- [ ] T018 [US3] Confirm the render path derives overdue status from a fresh current date each render (no memoized/stale "today") in `packages/frontend/src/App.js`; adjust if a stale value is cached (makes T017's rendering assumption hold)
+- [X] T018 [US3] Confirm the render path derives overdue status from a fresh current date each render (no memoized/stale "today") in `packages/frontend/src/App.js`; adjust if a stale value is cached (makes T017's rendering assumption hold)
 
 **Checkpoint**: All three user stories are independently functional.
 
@@ -120,10 +120,10 @@ is reported overdue.
 
 **Purpose**: Edge cases, coverage, and end-to-end validation across stories.
 
-- [ ] T019 [P] Add edge-case unit tests (empty list returns empty; list with no due dates is unchanged; stability of ordering) in `packages/frontend/src/utils/__tests__/overdue.test.js`
-- [ ] T020 [P] Confirm new code keeps coverage ≥ 80% per the constitution: `npm test --workspace=frontend -- --coverage`
-- [ ] T021 Run full suite to confirm no regressions: `npm test`
-- [ ] T022 Execute the manual validation steps and theme check in `specs/001-overdue-todos/quickstart.md`
+- [X] T019 [P] Add edge-case unit tests (empty list returns empty; list with no due dates is unchanged; stability of ordering) in `packages/frontend/src/utils/__tests__/overdue.test.js`
+- [X] T020 [P] Confirm new code keeps coverage ≥ 80% per the constitution: `npm test --workspace=frontend -- --coverage`
+- [X] T021 Run full suite to confirm no regressions: `npm test`
+- [X] T022 Execute the manual validation steps and theme check in `specs/001-overdue-todos/quickstart.md`
 
 ---
 

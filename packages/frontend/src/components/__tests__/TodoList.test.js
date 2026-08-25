@@ -59,4 +59,20 @@ describe('TodoList Component', () => {
     expect(screen.getAllByLabelText(/Edit/)).toHaveLength(2);
     expect(screen.getAllByLabelText(/Delete/)).toHaveLength(2);
   });
+
+  it('should render overdue todos above non-overdue todos, oldest due date first', () => {
+    // Past dates are always overdue relative to the real clock; future date never is.
+    const orderingTodos = [
+      { id: 10, title: 'Future task', dueDate: '2999-01-01', completed: 0, createdAt: '2025-11-03T00:00:00Z' },
+      { id: 11, title: 'Recently overdue', dueDate: '2000-06-01', completed: 0, createdAt: '2025-11-02T00:00:00Z' },
+      { id: 12, title: 'Long overdue', dueDate: '2000-01-01', completed: 0, createdAt: '2025-11-01T00:00:00Z' },
+    ];
+
+    const { container } = render(
+      <TodoList todos={orderingTodos} {...mockHandlers} isLoading={false} />
+    );
+
+    const titles = Array.from(container.querySelectorAll('.todo-title')).map((el) => el.textContent);
+    expect(titles).toEqual(['Long overdue', 'Recently overdue', 'Future task']);
+  });
 });

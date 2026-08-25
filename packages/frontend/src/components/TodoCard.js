@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { isOverdue } from '../utils/overdue';
 
 function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -106,6 +107,8 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
     );
   }
 
+  const overdue = isOverdue(todo);
+
   return (
     <div className={`todo-card ${todo.completed ? 'completed' : ''}`}>
       <input
@@ -119,8 +122,9 @@ function TodoCard({ todo, onToggle, onEdit, onDelete, isLoading }) {
 
       <div className="todo-content">
         <h3 className="todo-title">{todo.title}</h3>
+        {overdue && <span className="overdue-badge">Overdue</span>}
         {todo.dueDate && (
-          <p className="todo-due-date">
+          <p className={`todo-due-date ${overdue ? 'overdue' : ''}`}>
             Due: {formatDate(todo.dueDate)}
           </p>
         )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoCard from './TodoCard';
+import { sortTodosByOverdue } from '../utils/overdue';
 
 function TodoList({ todos, onToggle, onEdit, onDelete, isLoading }) {
   if (todos.length === 0) {
@@ -12,9 +13,13 @@ function TodoList({ todos, onToggle, onEdit, onDelete, isLoading }) {
     );
   }
 
+  // Overdue todos are grouped at the top (oldest due date first); recomputed each
+  // render so the current local date is always the reference for "overdue".
+  const orderedTodos = sortTodosByOverdue(todos);
+
   return (
     <div className="todo-list">
-      {todos.map((todo) => (
+      {orderedTodos.map((todo) => (
         <TodoCard
           key={todo.id}
           todo={todo}

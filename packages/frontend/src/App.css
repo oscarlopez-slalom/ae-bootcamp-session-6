@@ -366,6 +366,22 @@ p {
   color: var(--text-secondary);
 }
 
+.todo-due-date.overdue {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+.overdue-badge {
+  display: inline-block;
+  margin: 4px 0 0 0;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--danger-color);
+  border-radius: 4px;
+}
+
 .todo-actions {
   display: flex;
   gap: 8px;
