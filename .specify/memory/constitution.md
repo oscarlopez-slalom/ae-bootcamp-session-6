@@ -5,16 +5,16 @@ Version change: (unversioned template) → 1.0.0
 Rationale: Initial ratification of the project constitution. MAJOR bump (0.0.0 → 1.0.0)
 because this establishes the first governing principle set for the project.
 
-Modified principles:
-- [PRINCIPLE_1_NAME] → I. Readable, Conventional Code
-- [PRINCIPLE_2_NAME] → II. DRY, KISS & SOLID
-- [PRINCIPLE_3_NAME] → III. Test-Driven Quality (NON-NEGOTIABLE)
-- [PRINCIPLE_4_NAME] → IV. Robust Error Handling & Boundary Validation
-- [PRINCIPLE_5_NAME] → V. Design-System Consistency & Scope Discipline
+Principles defined (all template principle slots replaced with concrete content):
+- I. Readable, Conventional Code
+- II. DRY, KISS & SOLID
+- III. Test-Driven Quality (NON-NEGOTIABLE)
+- IV. Robust Error Handling & Boundary Validation
+- V. Design-System Consistency & Scope Discipline
 
-Added sections:
-- Technology & Architecture Constraints (was [SECTION_2_NAME])
-- Development Workflow & Quality Gates (was [SECTION_3_NAME])
+Added sections (template section slots replaced with concrete content):
+- Technology & Architecture Constraints
+- Development Workflow & Quality Gates
 - Governance
 
 Removed sections: none
@@ -24,7 +24,7 @@ Templates & references:
   docs/ui-guidelines.md, docs/functional-requirements.md, docs/project-overview.md
 
 Deferred items / TODOs:
-- RATIFICATION_DATE set to 2026-08-25 (date this constitution was first adopted).
+- Ratification date set to 2026-08-25 (date this constitution was first adopted).
   If an earlier adoption date is known, amend accordingly.
 -->
 
