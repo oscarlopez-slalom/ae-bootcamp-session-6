@@ -8,6 +8,14 @@
 
 **Input**: User description: "Support for Overdue Todo Items — As a todo application user I want to easily identify and distinguish overdue tasks in my todo list so that I can prioritize my work and quickly see which tasks are past their due date. Users need a clear, visual way to identify which todos have not been completed by their due date. This feature must include automated tests covering the overdue determination logic and its display, following the existing Jest patterns in the repository."
 
+## Clarifications
+
+### Session 2026-08-25
+
+- Q: Should overdue todos change position in the list, or stay in place and only gain a visual marker? → A: Overdue todos are automatically moved to the top of the list (still visually marked); non-overdue todos keep the existing newest-first order below them.
+- Q: What visual form should the overdue marker take on a todo card? → A: An "Overdue" text badge on the card together with the todo's due date shown in the design system's danger color (so the state is conveyed by text, not color alone).
+- Q: Among the overdue todos grouped at the top, in what order should they appear relative to one another? → A: Most overdue first — sorted by oldest due date at the top.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Identify overdue todos at a glance (Priority: P1)
@@ -34,6 +42,9 @@ overdue and the future-dated item is not.
    list, **Then** that todo is NOT marked as overdue.
 4. **Given** a todo that has no due date, **When** the user views the todo list, **Then** that todo
    is NOT marked as overdue.
+5. **Given** a list with a mix of overdue and non-overdue todos, **When** the user views the list,
+   **Then** all overdue todos appear at the top sorted oldest-due-date first, above the non-overdue
+   todos which remain in newest-first order.
 
 ---
 
@@ -96,14 +107,23 @@ the same todo is now flagged as overdue.
 - **FR-003**: System MUST NOT classify a todo as overdue when its due date is after the current date.
 - **FR-004**: System MUST NOT classify a todo as overdue when it has no due date.
 - **FR-005**: System MUST NOT classify a completed todo as overdue, regardless of its due date.
-- **FR-006**: System MUST visually distinguish overdue todos from non-overdue todos in the todo list.
+- **FR-006**: System MUST visually distinguish overdue todos from non-overdue todos in the todo
+  list by displaying an "Overdue" text badge on the todo and rendering its due date in the design
+  system's danger color.
 - **FR-007**: System MUST update a todo's overdue status immediately when its completion state
   changes (completing removes the indicator; reopening restores it if still past due).
 - **FR-008**: System MUST determine overdue status relative to the user's current local calendar
   date each time the todo list is displayed.
-- **FR-009**: The feature MUST include automated tests, following the existing Jest patterns in the
+- **FR-009**: System MUST order overdue todos above all non-overdue todos in the list. Within the
+  overdue group, todos MUST be sorted most-overdue first (oldest due date at the top). Non-overdue
+  todos retain the existing newest-first ordering below the overdue group.
+- **FR-010**: When a todo's overdue status changes (e.g., it is completed, reopened, or the date
+  advances), the system MUST re-place it in the correct group (overdue at top, otherwise in its
+  normal newest-first position).
+- **FR-011**: The feature MUST include automated tests, following the existing Jest patterns in the
   repository, that cover the overdue determination logic (past/today/future/no-due-date, and
-  completed vs. incomplete) and its display in the todo list.
+  completed vs. incomplete), the reordering of overdue todos to the top, and the display of the
+  overdue marker in the todo list.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -123,8 +143,10 @@ the same todo is now flagged as overdue.
   manually comparing any due date to today's date.
 - **SC-004**: When a user toggles a todo's completion state, its overdue indicator updates to the
   correct state with no additional user action.
-- **SC-005**: Automated tests cover the overdue determination logic and its display, and all pass in
-  the existing test suite.
+- **SC-005**: All overdue todos appear above every non-overdue todo when the list is viewed, and a
+  todo moves between groups when its overdue status changes, with no additional user action.
+- **SC-006**: Automated tests cover the overdue determination logic, the reordering behavior, and
+  the overdue display, and all pass in the existing test suite.
 
 ## Assumptions
 
@@ -135,5 +157,6 @@ the same todo is now flagged as overdue.
 - A due date equal to today is considered on-time for the entirety of that day.
 - This remains a single-user application; overdue status is global to the list and not user-specific.
 - The visual treatment follows the existing design system (colors, typography, spacing) and applies
-  to the existing todo list/card presentation; the exact visual styling is a design decision to be
-  settled during planning.
+  to the existing todo list/card presentation. The overdue marker is an "Overdue" text badge plus
+  the due date in the danger color (see Clarifications); exact placement and sizing within the card
+  are refined during planning.
